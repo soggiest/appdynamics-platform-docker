@@ -30,7 +30,7 @@ This contains the scripts and binaries required to install the AppDynamics Platf
 ## Add the License File
 You can add the license file either at build time or run time.
 #### Run time
-Once the controller container has started, use `docker exec` to add your AppDynamics license file. The following command can be used to inject the license file - this needs to run in a separate terminal, while the AppDynamics Controller installation is running:
+Once the controller container has started, use `docker run -v` to add your AppDynamics license file. The following command can be used to inject the license file - this needs to run in a separate terminal, while the AppDynamics Controller installation is running:
 - `docker run --rm -it --volumes-from controller-data -v $(pwd)/:/license appdynamics/controller-install bash -c "cp /license/license.lic /appdynamics/Controller"`
 
 #### Build time
