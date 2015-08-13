@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This script is provided for illustration purposes only.
 #
 # To build these Docker containers, you will need to download the following components:
@@ -5,8 +7,6 @@
 #    (http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 # 2. Correct versions for the AppDynamics Controller and EUM Server (64-bit Linux)
 #    (https://download.appdynamics.com)
-
-#!/bin/bash
 
 echo
 echo "Preparing AppDynamics platform installation"
@@ -27,17 +27,21 @@ chown appdynamics:appdynamics $APPD_INSTALL_DIR/Controller
 
 # Install or prompt for license file
 if [ -f /install/license.lic ]; then
-        cp /install/license.lic /appdynamics/Controller/
+  cp /install/license.lic /appdynamics/Controller/
 else
-	echo "You must supply a license file for this installation: use a separate terminal to run the following command in the directory containing your license file:"
-	echo 'docker run --rm -it --volumes-from controller-data -v $(pwd)/:/license appdynamics/controller-install bash -c "cp /license/license.lic /appdynamics/Controller"'
-        read -rsp $'Press any key to continue or CTRL+C to exit\n' -n1 key
+  echo "You must supply a license file for this installation: use a separate terminal to run the following command in the directory containing your license file:"
+  echo 'docker run --rm -it --volumes-from controller-data -v $(pwd)/:/license appdynamics/controller-install bash -c "cp /license/license.lic /appdynamics/Controller"'
+  read -rsp $'Press any key to continue or CTRL+C to exit\n' -n1 key
 fi
 
-# Change license file ownership and permissions
-echo "Setting license file ownership and permission"
-chown appdynamics:appdynamics /appdynamics/Controller/license.lic
-chmod 744 /appdynamics/Controller/license.lic
+if [ -f $APPD_INSTALL_DIR/Controller/license.lic ]; then
+  echo "Setting license file ownership and permission"
+  chown appdynamics:appdynamics $APPD_INSTALL_DIR/Controller/license.lic
+  chmod 744 $APPD_INSTALL_DIR/Controller/license.lic
+else
+  echo "Could not find $APPD_INSTALL_DIR/Controller/license.lic - exiting"
+  exit
+fi
 
 echo
 echo "Installing controller"
