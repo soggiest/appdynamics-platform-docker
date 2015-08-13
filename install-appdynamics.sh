@@ -65,7 +65,7 @@ echo "******************************"
 echo
 
 # Run EUEM install
-su - appdynamics -c "cat /install/euem.varfile.1"
+su - appdynamics -c "cat /install/eum.varfile.1"
 chown appdynamics:appdynamics /install/euem-64bit-linux.sh
 chmod 774 /install/euem-64bit-linux.sh
 
