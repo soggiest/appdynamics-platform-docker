@@ -1,3 +1,5 @@
+#! /bin/bash
+
 # This script is provided for illustration purposes only.
 #
 # To build these Docker containers, you will need to download the following components:
@@ -5,8 +7,6 @@
 #    (http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 # 2. Correct versions for the AppDynamics Controller and EUM Server (64-bit Linux)
 #    (https://download.appdynamics.com)
-
-#! /bin/bash
 
 cleanUp() {
   # Clean controller-install build directory
@@ -117,7 +117,7 @@ buildDataContainer() {
   echo
   echo "Building Data Volume Container (appdynamics/controller-data)"
   echo
-  (cd controller-data; docker build -t appdynamics/controller-data .)
+  (cd controller-data; docker build --no-cache -t appdynamics/controller-data .)
 }
 
 # Build installer container 
@@ -125,7 +125,7 @@ buildInstallContainer() {
   echo
   echo "Building Controller Installation container (appdynamics/controller-install)"
   echo 
-  (cd controller-install; docker build -t appdynamics/controller-install .)
+  (cd controller-install; docker build --no-cache -t appdynamics/controller-install .)
 }
 
 # Build controller container
@@ -133,7 +133,7 @@ buildControllerContainer() {
   echo
   echo "Building Controller Runtime container (appdynamics/controller)"
   echo
-  (cd controller; docker build -t appdynamics/controller .)
+  (cd controller; docker build --no-cache -t appdynamics/controller .)
 }
 
 # Temp dir for installers
