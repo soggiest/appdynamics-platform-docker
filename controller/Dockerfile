@@ -13,12 +13,15 @@ ADD /.bash_profile /home/appdynamics/
 RUN chown appdynamics:appdynamics /home/appdynamics/.bash_profile
 RUN chmod 774 /home/appdynamics/.bash_profile
 
-# Controller (http://localhost:8090/controller/
+# Controller 
 EXPOSE 8090
 # MySQL
 EXPOSE 3388
-# EUEM (http://localhost:7001/)
+# EUM 
 EXPOSE 7001
+# Events Service
+EXPOSE 9080
+EXPOSE 9081
 # SSH
 EXPOSE 22
 

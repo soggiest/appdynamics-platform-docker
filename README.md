@@ -42,7 +42,7 @@ The `build.sh` script will copy the license file (if one exists) from the projec
 ## Run the AppDynamics Controller and Processors (*controller*)
 
 This contains scripts to run the AppDynamics Platform. It should be used with a mounted docker volume (see `controller-data`) containing the /appdynamics install directory created with `controller-install`. In the following example, the mounted volume is called 'controller-data' and the contianer is 'controller'.  Note that the hostname (set with the -h flag) should match that used for the controller installation.
-- `docker run -d --name controller -h controller -p 8090:8090 -p 7001:7001 --volumes-from controller-data appdynamics/controller start-appdynamics`
+- `docker run -d --name controller -h controller -p 8090:8090 -p 7001:7001 -p 9080:9080 --volumes-from controller-data appdynamics/controller start-appdynamics`
 - `docker exec controller stop-appdynamics`
 - `docker exec controller start-appdynamics`
 
