@@ -7,5 +7,5 @@ RUN useradd --create-home --gid appdynamics -u 2001 appdynamics
 RUN mkdir -p /appdynamics && chown -R appdynamics:appdynamics /appdynamics
 VOLUME /appdynamics
 
-CMD ["echo", "Persistent data container for Appdynamics Controller"]
+CMD ["echo", "Persistent data container for Appdynamics Platform"]
 

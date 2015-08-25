@@ -15,7 +15,7 @@ echo
 
 # Use container hostname for response files
 echo "Setting hostname in response varfiles"
-sed -e "s/SERVERHOSTNAME/`hostname`/g" /install/response.varfile > /install/response.varfile.1
+sed -e "s/SERVERHOSTNAME/`hostname`/g" /install/controller.varfile > /install/controller.varfile.1
 sed -e "s/SERVERHOSTNAME/`hostname`/g" /install/eum.varfile > /install/eum.varfile.1
 chown appdynamics:appdynamics /install/*.varfile.1
 
@@ -30,7 +30,7 @@ if [ -f /install/license.lic ]; then
   cp /install/license.lic /appdynamics/Controller/
 else
   echo "You must supply a license file for this installation: use a separate terminal to run the following command in the directory containing your license file:"
-  echo 'docker run --rm -it --volumes-from controller-data -v $(pwd)/:/license appdynamics/controller-install bash -c "cp /license/license.lic /appdynamics/Controller"'
+  echo 'docker run --rm -it --volumes-from platform-data -v $(pwd)/:/license appdynamics/platform-install bash -c "cp /license/license.lic /appdynamics/Controller"'
   read -rsp $'Press any key to continue or CTRL+C to exit\n' -n1 key
 fi
 
@@ -44,14 +44,13 @@ else
 fi
 
 echo
-echo "Installing controller"
+echo "Installing Controller"
 echo "*********************"
 echo
- 
-# Run Controller install
+su - appdynamics -c "cat /install/controller.varfile.1"
 chown appdynamics:appdynamics /install/controller_64bit_linux.sh
 chmod 774 /install/controller_64bit_linux.sh
-su - appdynamics -c '/install/controller_64bit_linux.sh -q -varfile /install/response.varfile.1'
+su - appdynamics -c '/install/controller_64bit_linux.sh -q -varfile /install/controller.varfile.1'
 
 echo
 echo "Configuring Events Service"
@@ -67,6 +66,10 @@ echo "Configuring EUM response varfile"
 su - appdynamics -c '/install/setup-eum-varfile.sh'
 su - appdynamics -c 'cat /install/eum-events-service.varfile >> /install/eum.varfile.1'
 
+# Configure EUM to use embedded Events Service
+echo "Setting Controller JvmOptions for End User Monitoring"
+su - appdynamics -c '/install/setup-controller-jvmoptions.sh'
+
 # Start embedded Events Service
 echo "Starting embedded Events Service"
 su - appdynamics -c "$APPD_INSTALL_DIR/Controller/bin/controller.sh start-events-service"
@@ -75,20 +78,15 @@ echo
 echo "Installing End User Monitoring"
 echo "******************************"
 echo
-
-# Run EUEM install
 su - appdynamics -c "cat /install/eum.varfile.1"
 chown appdynamics:appdynamics /install/euem-64bit-linux.sh
 chmod 774 /install/euem-64bit-linux.sh
-
 su - appdynamics -c '/install/euem-64bit-linux.sh -q -varfile /install/eum.varfile.1'
 
 echo
 echo "Stopping AppDynamics Platform"
 echo "*****************************"
 echo
-
-# Stop Controller, EUEM and Analytics
 su - appdynamics -c '/appdynamics/Controller/bin/stopController.sh'
 
 echo

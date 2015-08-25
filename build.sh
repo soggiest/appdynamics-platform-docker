@@ -9,15 +9,29 @@
 #    (https://download.appdynamics.com)
 
 cleanUp() {
-  # Clean controller-install build directory
-  (cd controller-install; rm controller_64bit_linux.sh euem-64bit-linux.sh response.varfile eum.varfile eum.properties install-appdynamics.sh start-appdynamics.sh stop-appdynamics.sh setup-events-service.sh setup-eum-varfile.sh eum-events-service.varfile .bash_profile)
+  # Clean platform-install build directory
+  (cd platform-install; rm controller_64bit_linux.sh \
+                           euem-64bit-linux.sh \
+                           controller.varfile \
+                           eum.varfile \
+                           eum.properties \
+                           install-appdynamics.sh \
+                           start-appdynamics.sh \
+                           stop-appdynamics.sh \
+                           setup-events-service.sh \
+                           setup-eum-varfile.sh \
+                           setup-controller-jvmoptions.sh \
+                           eum-events-service.varfile \
+                           .bash_profile)
 
-  if [ -f controller-install/license.lic ]; then
-    rm controller-install/license.lic
+  if [ -f platform-install/license.lic ]; then
+    rm platform-install/license.lic
   fi
 
-  # Clean controller build directory
-  (cd controller; rm start-appdynamics.sh stop-appdynamics.sh .bash_profile)
+  # Clean platform build directory
+  (cd platform; rm start-appdynamics.sh \
+                   stop-appdynamics.sh \
+                   .bash_profile)
 
   # Cleanup temp dir and files
   rm -rf .appdynamics
@@ -35,38 +49,39 @@ trap cleanUp EXIT
 
 copyInstallerFiles() {
   # Copy installation files and scripts to build installer image
-  cp .appdynamics/controller_64bit_linux.sh controller-install
-  cp .appdynamics/euem-64bit-linux.sh controller-install
-  cp response.varfile controller-install
-  cp eum.varfile controller-install
-  cp eum.properties controller-install
-  cp setup-events-service.sh controller-install
-  cp setup-eum-varfile.sh controller-install
-  cp eum-events-service.varfile controller-install
-  cp install-appdynamics.sh controller-install
-  cp start-appdynamics.sh controller-install
-  cp stop-appdynamics.sh controller-install
-  cp .bash_profile controller-install
+  cp .appdynamics/controller_64bit_linux.sh platform-install
+  cp .appdynamics/euem-64bit-linux.sh platform-install
+  cp controller.varfile platform-install
+  cp eum.varfile platform-install
+  cp eum.properties platform-install
+  cp setup-events-service.sh platform-install
+  cp setup-eum-varfile.sh platform-install
+  cp setup-controller-jvmoptions.sh platform-install
+  cp eum-events-service.varfile platform-install
+  cp install-appdynamics.sh platform-install
+  cp start-appdynamics.sh platform-install
+  cp stop-appdynamics.sh platform-install
+  cp .bash_profile platform-install
 }
 
 copyControllerScripts() {
-  # Copy scripts to build controller image
-  cp start-appdynamics.sh controller
-  cp stop-appdynamics.sh controller
-  cp .bash_profile controller
+  # Copy scripts to build platform image
+  cp start-appdynamics.sh platform
+  cp stop-appdynamics.sh platform
+  cp .bash_profile platform
 }
 
-# Add license file to controller-install build, if supplied
+# Add license file to platform-install build, if supplied
 checkLicenseFile() {
   if [ -f license.lic ]; then
-    cp license.lic controller-install
-    echo "Copied license file to controller-install build dir"
+    cp license.lic platform-install
+    echo "Copied license file to platform-install build dir"
   else
     echo "License file not found - building without embedded license"
   fi
 }
 
-promptForInstaller() {
+promptForInstallers() {
   read -e -p "Enter path to Controller Installer: " CONTROLLER_INSTALL
   cp ${CONTROLLER_INSTALL} .appdynamics/controller_64bit_linux.sh
   read -e -p "Enter path to EUM Server Installer: " EUM_INSTALL
@@ -94,11 +109,11 @@ downloadInstallers() {
     fi
 
     echo "Downloading AppDynamics Controller..."
-    wget --quiet --load-cookies cookies.txt https://download.appdynamics.com/onpremise/public/latest/controller_64bit_linux.sh -O .appdynamics/controller_64bit_linux.sh
+    wget --quiet --load-cookies cookies.txt https://download.appdynamics.com/onpremise/public/latest/platform_64bit_linux.sh -O .appdynamics/platform_64bit_linux.sh
     if [ $? -ne 0 ]; then
       exit 
     fi
-    CONTROLLER_INSTALL=".appdynamics/controller_64bit_linux.sh"
+    CONTROLLER_INSTALL=".appdynamics/platform_64bit_linux.sh"
 
     echo "Downloading EUEM Installer..."
     wget --quiet --load-cookies cookies.txt https://download.appdynamics.com/onpremise/public/latest/euem-64bit-linux.sh -O .appdynamics/euem-64bit-linux.sh
@@ -115,25 +130,25 @@ downloadInstallers() {
 # Build data container
 buildDataContainer() {
   echo
-  echo "Building Data Volume Container (appdynamics/controller-data)"
+  echo "Building Data Volume Container (appdynamics/platform-data)"
   echo
-  (cd controller-data; docker build --no-cache -t appdynamics/controller-data .)
+  (cd platform-data; docker build --no-cache -t appdynamics/platform-data .)
 }
 
 # Build installer container 
 buildInstallContainer() {
   echo
-  echo "Building Controller Installation container (appdynamics/controller-install)"
+  echo "Building Controller Installation container (appdynamics/platform-install)"
   echo 
-  (cd controller-install; docker build --no-cache -t appdynamics/controller-install .)
+  (cd platform-install; docker build --no-cache -t appdynamics/platform-install .)
 }
 
-# Build controller container
+# Build platform container
 buildControllerContainer() {
   echo
-  echo "Building Controller Runtime container (appdynamics/controller)"
+  echo "Building Controller Runtime container (appdynamics/platform)"
   echo
-  (cd controller; docker build --no-cache -t appdynamics/controller .)
+  (cd platform; docker build --no-cache -t appdynamics/platform .)
 }
 
 # Temp dir for installers
