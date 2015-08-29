@@ -14,7 +14,6 @@ cleanUp() {
                            euem-64bit-linux.sh \
                            controller.varfile \
                            eum.varfile \
-                           eum.properties \
                            install-appdynamics.sh \
                            start-appdynamics.sh \
                            stop-appdynamics.sh \
@@ -53,7 +52,6 @@ copyInstallerFiles() {
   cp .appdynamics/euem-64bit-linux.sh platform-install
   cp controller.varfile platform-install
   cp eum.varfile platform-install
-  cp eum.properties platform-install
   cp setup-events-service.sh platform-install
   cp setup-eum-varfile.sh platform-install
   cp setup-controller-jvmoptions.sh platform-install

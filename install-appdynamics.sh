@@ -64,7 +64,6 @@ su - appdynamics -c '/install/setup-events-service.sh'
 # Configure EUM response varfile to use local Events Service
 echo "Configuring EUM response varfile"
 su - appdynamics -c '/install/setup-eum-varfile.sh'
-su - appdynamics -c 'cat /install/eum-events-service.varfile >> /install/eum.varfile.1'
 
 # Configure EUM to use embedded Events Service
 echo "Setting Controller JvmOptions for End User Monitoring"

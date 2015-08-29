@@ -14,7 +14,6 @@ ADD /euem-64bit-linux.sh /install/
 RUN chmod 774 /install/euem-64bit-linux.sh
 
 ADD /eum.varfile /install/
-ADD /eum.properties /install/
 ADD /.bash_profile /home/appdynamics/
 
 ADD /setup-eum-varfile.sh /install/
@@ -22,9 +21,6 @@ RUN chmod 774 /install/setup-eum-varfile.sh
 
 ADD /setup-events-service.sh /install/
 RUN chmod 774 /install/setup-events-service.sh
-
-ADD /eum-events-service.varfile /install/
-RUN chmod 774 /install/eum-events-service.varfile
 
 ADD /setup-controller-jvmoptions.sh /install/
 RUN chmod 774 /install/setup-controller-jvmoptions.sh

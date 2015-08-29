@@ -15,3 +15,7 @@ mysql.dbHostName=localhost
 eumDatabasePassword=welcome1
 eumDatabaseReEnterPassword=welcome1
 mysqlRootUserPassword=welcome1
+eventsService.isEnabled$Boolean=true
+eventsService.serverScheme=http
+eventsService.host=localhost
+eventsService.port=9080
