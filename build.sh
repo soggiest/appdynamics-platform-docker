@@ -10,27 +10,26 @@
 
 cleanUp() {
   # Clean platform-install build directory
-  (cd platform-install; rm controller_64bit_linux.sh \
-                           euem-64bit-linux.sh \
-                           controller.varfile \
-                           eum.varfile \
-                           install-appdynamics.sh \
-                           start-appdynamics.sh \
-                           stop-appdynamics.sh \
-                           setup-events-service.sh \
-                           setup-eum-varfile.sh \
-                           setup-controller-jvmoptions.sh \
-                           eum-events-service.varfile \
-                           .bash_profile)
+  (cd platform-install; rm -f controller_64bit_linux.sh \
+                              euem-64bit-linux.sh \
+                              controller.varfile \
+                              eum.varfile \
+                              install-appdynamics.sh \
+                              start-appdynamics.sh \
+                              stop-appdynamics.sh \
+                              setup-events-service.sh \
+                              setup-eum-varfile.sh \
+                              setup-controller-jvmoptions.sh \
+                              .bash_profile)
 
   if [ -f platform-install/license.lic ]; then
     rm platform-install/license.lic
   fi
 
   # Clean platform build directory
-  (cd platform; rm start-appdynamics.sh \
-                   stop-appdynamics.sh \
-                   .bash_profile)
+  (cd platform; rm -f start-appdynamics.sh \
+                      stop-appdynamics.sh \
+                      .bash_profile)
 
   # Cleanup temp dir and files
   rm -rf .appdynamics
@@ -55,7 +54,6 @@ copyInstallerFiles() {
   cp setup-events-service.sh platform-install
   cp setup-eum-varfile.sh platform-install
   cp setup-controller-jvmoptions.sh platform-install
-  cp eum-events-service.varfile platform-install
   cp install-appdynamics.sh platform-install
   cp start-appdynamics.sh platform-install
   cp stop-appdynamics.sh platform-install
