@@ -85,12 +85,12 @@ promptForInstallers() {
 }
 
 downloadInstallers() {
-  echo "An AppDynamics Portal login is required to download the installer software"
-  echo "Email ID/UserName: "
+  echo "An AppDynamics Portal login is required to download the Controller and EUM Server installers"
+  echo -n "Email ID/UserName: "
   read USER_NAME
 
   stty -echo
-  echo "Password: "
+  echo -n "Password: "
   read PASSWORD
   stty echo
   echo
