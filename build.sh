@@ -105,15 +105,17 @@ downloadInstallers() {
     fi
 
     echo "Downloading AppDynamics Controller..."
-    wget --quiet --load-cookies cookies.txt https://download.appdynamics.com/onpremise/public/latest/platform_64bit_linux.sh -O .appdynamics/platform_64bit_linux.sh
+    wget --quiet --load-cookies cookies.txt https://download.appdynamics.com/onpremise/public/latest/controller_64bit_linux.sh -O .appdynamics/controller_64bit_linux.sh
     if [ $? -ne 0 ]; then
+      echo "Error: unable to download AppDynamics Controller"
       exit 
     fi
-    CONTROLLER_INSTALL=".appdynamics/platform_64bit_linux.sh"
+    CONTROLLER_INSTALL=".appdynamics/controller_64bit_linux.sh"
 
     echo "Downloading EUEM Installer..."
     wget --quiet --load-cookies cookies.txt https://download.appdynamics.com/onpremise/public/latest/euem-64bit-linux.sh -O .appdynamics/euem-64bit-linux.sh
     if [ $? -ne 0 ]; then
+      echo "Error: unable to download AppDynamics EUM Server"
       exit 
     fi
     EUM_INSTALL=".appdynamics/euem-64bit-linux.sh"
