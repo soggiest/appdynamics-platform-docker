@@ -62,7 +62,7 @@ To build the containers, run `build.sh` with one of the following options:
 3. Run `build.sh --download` to download from `https://download.appdynamics.com` (portal login required)
 
 ## Connecting to the Controller
-If you are using [boot2docker](http://boot2docker.io/) to run docker on OSX/Windows, you can use the following VirtualBox command to map port 8090 on the docker container to your localhost interface 
+If you are using [boot2docker](http://boot2docker.io/) or [docker-machine](https://docs.docker.com/machine/) to run docker on OSX/Windows, you can use the following VirtualBox command to map port 8090 on the docker container to your localhost interface 
 
 `VBoxManage controlvm boot2docker-vm natpf1 "8090-8090,tcp,127.0.0.1,8090,,8090"`
 
