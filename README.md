@@ -66,6 +66,17 @@ If you are using [boot2docker](http://boot2docker.io/) or [docker-machine](https
 
 `VBoxManage controlvm boot2docker-vm natpf1 "8090-8090,tcp,127.0.0.1,8090,,8090"`
 
+You can change any of the ports used in the silent installer response varfiles:
+- [controller.varfile](https://github.com/Appdynamics/appdynamics-platform-docker/blob/master/controller.varfile)
+- [eum.varfile](https://github.com/Appdynamics/appdynamics-platform-docker/blob/master/eum.varfile)
+
+Note: you will need to rebuild the container iamges for these changes to take effect.  See the [product documentation](https://docs.appdynamics.com/display/PRO41/Install+the+Controller#InstalltheController-installeroptionsInstallationConfigurationSettings) for more information about the silent installer settings.
+
+You can remap any ports used by the AppDynamics Platform to different ports on your lcoal system, using the `docker run -p` option.  For example `-p 80:8090` will map the Controller server port 8090 to your default HTTP port 80.
+
+## Using the Containers
+
 For the Controller UI, browse to: `http://localhost:8090/controller`
 
-Default controller login: user1/welcome
+Default Controller login: user1/welcome
+Default Root user login: welcome
