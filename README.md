@@ -78,5 +78,5 @@ You can remap any ports used by the AppDynamics Platform to different ports on y
 
 For the Controller UI, browse to: `http://localhost:8090/controller`
 
-Default Controller login: user1/welcome
-Default Root user login: welcome
+- Default Controller login: user1/welcome
+- Default Root user login: welcome
