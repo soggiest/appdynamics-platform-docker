@@ -62,21 +62,24 @@ To build the containers, run `build.sh` with one of the following options:
 3. Run `build.sh --download` to download from `https://download.appdynamics.com` (portal login required)
 
 ## Connecting to the Controller
-If you are using [boot2docker](http://boot2docker.io/) or [docker-machine](https://docs.docker.com/machine/) to run docker on OSX/Windows, you can use the following VirtualBox command to map port 8090 on the docker container to your localhost interface 
-
-`VBoxManage controlvm boot2docker-vm natpf1 "8090-8090,tcp,127.0.0.1,8090,,8090"`
-
 You can change any of the ports used in the silent installer response varfiles:
 - [controller.varfile](https://github.com/Appdynamics/appdynamics-platform-docker/blob/master/controller.varfile)
 - [eum.varfile](https://github.com/Appdynamics/appdynamics-platform-docker/blob/master/eum.varfile)
 
-Note: you will need to rebuild the container iamges for these changes to take effect.  See the [product documentation](https://docs.appdynamics.com/display/PRO41/Install+the+Controller#InstalltheController-installeroptionsInstallationConfigurationSettings) for more information about the silent installer settings.
+Note: you will need to rebuild the container images for these changes to take effect.  See the [product documentation](https://docs.appdynamics.com/display/PRO41/Install+the+Controller#InstalltheController-installeroptionsInstallationConfigurationSettings) for more information about the silent installer settings.
 
 You can remap any ports used by the AppDynamics Platform to different ports on your lcoal system, using the `docker run -p` option.  For example `-p 80:8090` will map the Controller server port 8090 to your default HTTP port 80.
 
-## Using the Containers
+If you are using [boot2docker](http://boot2docker.io/) or [docker-machine](https://docs.docker.com/machine/) to run docker on OSX/Windows, you should use the following commands to determine the Docker host's IP address:
 
-For the Controller UI, browse to: `http://localhost:8090/controller`
+- boot2docker: `boot2docker ip`
+- docker-machine: `docker-machine ip default`
 
-- Default Controller login: user1/welcome
-- Default Root user login: welcome
+You can use the following VirtualBox command to map port 8090 on the docker container to your localhost interface 
+
+`VBoxManage controlvm boot2docker-vm natpf1 "8090-8090,tcp,127.0.0.1,8090,,8090"`
+
+## Default logins 
+
+- Controller login: user1/welcome
+- Root user login: welcome
