@@ -1,5 +1,6 @@
 FROM openshift/tomcat7-openshift
 
+USER 0
 
 RUN mkdir -p /install
 
