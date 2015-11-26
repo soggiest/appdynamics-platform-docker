@@ -4,6 +4,14 @@ USER 0
 
 RUN mkdir -p /install
 
+COPY centOS-base.repo /etc/yum.repos.d/centOS-base.repo
+COPY centos-cr.repo /etc/yum.repos.d/centos-cr.repo
+COPY centos-debug.repo /etc/yum.repos.d/centos-debug.repo
+COPY centos-fasttrack.repo /etc/yum.repos.d/centos-fasttrack.repo
+COPY centos-sources.repo /etc/yum.repos.d/centos-sources.repo
+COPY centos-vault.repo /etc/yum.repos.d/centos-vault.repo
+COPY systemd.repo /etc/yum.repos.d/systemd.repo
+
 RUN yum install -y libaio-devel
 RUN yum install -y wget
 RUN yum install -y unzip
