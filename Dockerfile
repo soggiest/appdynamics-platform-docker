@@ -12,6 +12,8 @@ COPY centos-sources.repo /etc/yum.repos.d/centos-sources.repo
 COPY centos-vault.repo /etc/yum.repos.d/centos-vault.repo
 COPY systemd.repo /etc/yum.repos.d/systemd.repo
 
+RUN yum repolist all
+
 RUN yum install -y libaio-devel
 RUN yum install -y wget
 RUN yum install -y unzip
