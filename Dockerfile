@@ -14,6 +14,8 @@ COPY systemd.repo /etc/yum.repos.d/systemd.repo
 
 RUN yum repolist --enablerepo *
 
+RUN df -h
+
 RUN yum install -y libaio-devel
 RUN yum install -y wget
 RUN yum install -y unzip
