@@ -36,8 +36,8 @@ RUN useradd --create-home --gid appdynamics -u 2001 appdynamics
 RUN echo 'appdynamics:appdynamics' | chpasswd
 
 # Controller installation and response file
-ADD /controller_64bit_linux.sh /install/
-RUN chmod 774 /install/controller_64bit_linux.sh
+#ADD /controller_64bit_linux.sh /install/
+#RUN chmod 774 /install/controller_64bit_linux.sh
 ADD /controller.varfile /install/
 
 # EUEM installation and response files
