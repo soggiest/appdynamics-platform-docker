@@ -4,6 +4,8 @@ USER 0
 
 RUN mkdir -p /install
 
+RUN df -h
+
 COPY centOS-base.repo /etc/yum.repos.d/centOS-base.repo
 COPY centos-cr.repo /etc/yum.repos.d/centos-cr.repo
 COPY centos-debug.repo /etc/yum.repos.d/centos-debug.repo
@@ -14,7 +16,7 @@ COPY systemd.repo /etc/yum.repos.d/systemd.repo
 
 RUN yum repolist --enablerepo *
 
-RUN df -h
+
 
 RUN yum install -y libaio-devel
 RUN yum install -y wget
