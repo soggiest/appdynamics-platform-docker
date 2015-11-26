@@ -41,8 +41,8 @@ RUN echo 'appdynamics:appdynamics' | chpasswd
 ADD /controller.varfile /install/
 
 # EUEM installation and response files
-ADD /euem-64bit-linux.sh /install/
-RUN chmod 774 /install/euem-64bit-linux.sh
+#ADD /euem-64bit-linux.sh /install/
+#RUN chmod 774 /install/euem-64bit-linux.sh
 
 ADD /eum.varfile /install/
 ADD /.bash_profile /home/appdynamics/
